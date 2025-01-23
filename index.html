@@ -32,8 +32,172 @@
       transition: transform 0.3s ease;
     }
   </style>
+
+
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+  }
+  form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  label {
+    display: block;
+    margin-top: 10px;
+  }
+  input, select, button {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  button {
+    margin-top: 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  #resultado {
+    margin-top: 20px;
+    font-weight: bold;
+  }
+</style>
 </head>
 <body>
+<h1>Simulador de ISV 2025</h1>
+<form id="simulador-isv">
+  <label for="cilindrada">Cilindrada (cm³):</label>
+  <input type="number" id="cilindrada" name="cilindrada" placeholder="Ex: 1600" required>
+
+  <label for="co2">Emissões de CO₂ (g/km):</label>
+  <input type="number" id="co2" name="co2" placeholder="Ex: 120" required>
+
+  <label for="combustivel">Tipo de Combustível:</label>
+  <select id="combustivel" name="combustivel" required>
+    <option value="" disabled selected>Escolha o tipo de combustível</option>
+    <option value="gasolina">Gasolina</option>
+    <option value="diesel">Diesel</option>
+  </select>
+
+  <label for="idade">Idade do Veículo (anos):</label>
+  <input type="number" id="idade" name="idade" placeholder="Ex: 3" required>
+
+  <button type="button" onclick="calcularISV()">Calcular ISV</button>
+</form>
+
+<p id="resultado"></p>
+
+<script>
+  function calcularISV() {
+    const cilindrada = parseFloat(document.getElementById('cilindrada').value);
+    const co2 = parseFloat(document.getElementById('co2').value);
+    const combustivel = document.getElementById('combustivel').value;
+    const idade = parseFloat(document.getElementById('idade').value);
+
+    let taxaCilindrada = 0;
+    let parcelaAbaterCilindrada = 0;
+    let taxaCO2 = 0;
+    let parcelaAbaterCO2 = 0;
+
+    // Cálculo da componente cilindrada
+    if (cilindrada <= 1000) {
+      taxaCilindrada = cilindrada * 1.09;
+      parcelaAbaterCilindrada = 849.03;
+    } else if (cilindrada <= 1250) {
+      taxaCilindrada = cilindrada * 1.18;
+      parcelaAbaterCilindrada = 850.69;
+    } else {
+      taxaCilindrada = cilindrada * 5.61;
+      parcelaAbaterCilindrada = 6194.88;
+    }
+    const componenteCilindrada = Math.max(0, taxaCilindrada - parcelaAbaterCilindrada);
+
+    // Cálculo da componente ambiental (CO₂)
+    if (combustivel === 'gasolina') {
+      if (co2 <= 99) {
+        taxaCO2 = co2 * 5.00;
+        parcelaAbaterCO2 = 432.00;
+      } else if (co2 <= 115) {
+        taxaCO2 = co2 * 25.00;
+        parcelaAbaterCO2 = 2320.00;
+      } else if (co2 <= 145) {
+        taxaCO2 = co2 * 81.00;
+        parcelaAbaterCO2 = 8400.00;
+      } else if (co2 <= 175) {
+        taxaCO2 = co2 * 121.00;
+        parcelaAbaterCO2 = 14000.00;
+      } else if (co2 <= 195) {
+        taxaCO2 = co2 * 152.00;
+        parcelaAbaterCO2 = 19250.00;
+      } else {
+        taxaCO2 = co2 * 176.00;
+        parcelaAbaterCO2 = 23140.00;
+      }
+    } else if (combustivel === 'diesel') {
+      if (co2 <= 99) {
+        taxaCO2 = co2 * 25.00;
+        parcelaAbaterCO2 = 2320.00;
+      } else if (co2 <= 115) {
+        taxaCO2 = co2 * 81.00;
+        parcelaAbaterCO2 = 8400.00;
+      } else if (co2 <= 145) {
+        taxaCO2 = co2 * 121.00;
+        parcelaAbaterCO2 = 14000.00;
+      } else if (co2 <= 175) {
+        taxaCO2 = co2 * 152.00;
+        parcelaAbaterCO2 = 19250.00;
+      } else if (co2 <= 195) {
+        taxaCO2 = co2 * 176.00;
+        parcelaAbaterCO2 = 23140.00;
+      } else {
+        taxaCO2 = co2 * 192.00;
+        parcelaAbaterCO2 = 25620.00;
+      }
+    }
+    const componenteCO2 = Math.max(0, taxaCO2 - parcelaAbaterCO2);
+
+    // Aplicar depreciação para veículos usados
+    let depreciacao = 1;
+    if (idade <= 1) {
+      depreciacao = 1;
+    } else if (idade <= 2) {
+      depreciacao = 0.8;
+    } else if (idade <= 3) {
+      depreciacao = 0.75;
+    } else if (idade <= 4) {
+      depreciacao = 0.6;
+    } else if (idade <= 5) {
+      depreciacao = 0.5;
+    } else if (idade <= 6) {
+      depreciacao = 0.4;
+    } else if (idade <= 7) {
+      depreciacao = 0.35;
+    } else if (idade <= 8) {
+      depreciacao = 0.3;
+    } else {
+      depreciacao = 0.2;
+    }
+
+    // Calcular ISV total
+    const totalISV = (componenteCilindrada + componenteCO2) * depreciacao;
+
+    document.getElementById('resultado').innerText = `O ISV estimado é: ${totalISV.toFixed(2)} €`;
+  }
+</script>
+
+
   <!-- Hero Section -->
   <header class="relative h-screen">
     <div 
@@ -73,6 +237,8 @@
     </div>
   </header>
 
+  
+  
   <!-- Services Section -->
   <section id="services" class="py-20 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4">
