@@ -1,557 +1,184 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GlobalDrive - Importação de Veículos Premium</title>
-  <script src="https://unpkg.com/lucide@latest"></script>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-    
-    body {
-      font-family: 'Inter', sans-serif;
-    }
-
-    .hero-gradient {
-      background: linear-gradient(to bottom, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5));
-    }
-
-    .car-card:hover img {
-      transform: scale(1.1);
-      transition: transform 0.5s ease;
-    }
-
-    .contact-item:hover {
-      transform: translateY(-2px);
-      transition: transform 0.3s ease;
-    }
-
-    .step-number:hover {
-      transform: scale(1.1);
-      transition: transform 0.3s ease;
-    }
-  </style>
-
-
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 20px;
-    padding: 20px;
-  }
-  form {
-    max-width: 400px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-  }
-  label {
-    display: block;
-    margin-top: 10px;
-  }
-  input, select, button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-  }
-  button {
-    margin-top: 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    cursor: pointer;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
-  #resultado {
-    margin-top: 20px;
-    font-weight: bold;
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Falrui – Indústria Caixilharia de Alumínio</title>
+    <!-- Importar fontes via @font-face no style.css -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-<h1>Simulador de ISV 2025</h1>
-<form id="simulador-isv">
-  <label for="cilindrada">Cilindrada (cm³):</label>
-  <input type="number" id="cilindrada" name="cilindrada" placeholder="Ex: 1600" required>
-
-  <label for="co2">Emissões de CO₂ (g/km):</label>
-  <input type="number" id="co2" name="co2" placeholder="Ex: 120" required>
-
-  <label for="combustivel">Tipo de Combustível:</label>
-  <select id="combustivel" name="combustivel" required>
-    <option value="" disabled selected>Escolha o tipo de combustível</option>
-    <option value="gasolina">Gasolina</option>
-    <option value="diesel">Diesel</option>
-  </select>
-
-  <label for="idade">Idade do Veículo (anos):</label>
-  <input type="number" id="idade" name="idade" placeholder="Ex: 3" required>
-
-  <button type="button" onclick="calcularISV()">Calcular ISV</button>
-</form>
-
-<p id="resultado"></p>
-
-<script>
-  function calcularISV() {
-    const cilindrada = parseFloat(document.getElementById('cilindrada').value);
-    const co2 = parseFloat(document.getElementById('co2').value);
-    const combustivel = document.getElementById('combustivel').value;
-    const idade = parseFloat(document.getElementById('idade').value);
-
-    let taxaCilindrada = 0;
-    let parcelaAbaterCilindrada = 0;
-    let taxaCO2 = 0;
-    let parcelaAbaterCO2 = 0;
-
-    // Cálculo da componente cilindrada
-    if (cilindrada <= 1000) {
-      taxaCilindrada = cilindrada * 1.09;
-      parcelaAbaterCilindrada = 849.03;
-    } else if (cilindrada <= 1250) {
-      taxaCilindrada = cilindrada * 1.18;
-      parcelaAbaterCilindrada = 850.69;
-    } else {
-      taxaCilindrada = cilindrada * 5.61;
-      parcelaAbaterCilindrada = 6194.88;
-    }
-    const componenteCilindrada = Math.max(0, taxaCilindrada - parcelaAbaterCilindrada);
-
-    // Cálculo da componente ambiental (CO₂)
-    if (combustivel === 'gasolina') {
-      if (co2 <= 99) {
-        taxaCO2 = co2 * 5.00;
-        parcelaAbaterCO2 = 432.00;
-      } else if (co2 <= 115) {
-        taxaCO2 = co2 * 25.00;
-        parcelaAbaterCO2 = 2320.00;
-      } else if (co2 <= 145) {
-        taxaCO2 = co2 * 81.00;
-        parcelaAbaterCO2 = 8400.00;
-      } else if (co2 <= 175) {
-        taxaCO2 = co2 * 121.00;
-        parcelaAbaterCO2 = 14000.00;
-      } else if (co2 <= 195) {
-        taxaCO2 = co2 * 152.00;
-        parcelaAbaterCO2 = 19250.00;
-      } else {
-        taxaCO2 = co2 * 176.00;
-        parcelaAbaterCO2 = 23140.00;
-      }
-    } else if (combustivel === 'diesel') {
-      if (co2 <= 99) {
-        taxaCO2 = co2 * 25.00;
-        parcelaAbaterCO2 = 2320.00;
-      } else if (co2 <= 115) {
-        taxaCO2 = co2 * 81.00;
-        parcelaAbaterCO2 = 8400.00;
-      } else if (co2 <= 145) {
-        taxaCO2 = co2 * 121.00;
-        parcelaAbaterCO2 = 14000.00;
-      } else if (co2 <= 175) {
-        taxaCO2 = co2 * 152.00;
-        parcelaAbaterCO2 = 19250.00;
-      } else if (co2 <= 195) {
-        taxaCO2 = co2 * 176.00;
-        parcelaAbaterCO2 = 23140.00;
-      } else {
-        taxaCO2 = co2 * 192.00;
-        parcelaAbaterCO2 = 25620.00;
-      }
-    }
-    const componenteCO2 = Math.max(0, taxaCO2 - parcelaAbaterCO2);
-
-    // Aplicar depreciação para veículos usados
-    let depreciacao = 1;
-    if (idade <= 1) {
-      depreciacao = 1;
-    } else if (idade <= 2) {
-      depreciacao = 0.8;
-    } else if (idade <= 3) {
-      depreciacao = 0.75;
-    } else if (idade <= 4) {
-      depreciacao = 0.6;
-    } else if (idade <= 5) {
-      depreciacao = 0.5;
-    } else if (idade <= 6) {
-      depreciacao = 0.4;
-    } else if (idade <= 7) {
-      depreciacao = 0.35;
-    } else if (idade <= 8) {
-      depreciacao = 0.3;
-    } else {
-      depreciacao = 0.2;
-    }
-
-    // Calcular ISV total
-    const totalISV = (componenteCilindrada + componenteCO2) * depreciacao;
-
-    document.getElementById('resultado').innerText = `O ISV estimado é: ${totalISV.toFixed(2)} €`;
-  }
-</script>
-
-
-  <!-- Hero Section -->
-  <header class="relative h-screen">
-    <div 
-      class="absolute inset-0 bg-cover bg-center bg-no-repeat"
-      style="background-image: url('https://images.unsplash.com/photo-1536700503339-1e4b06520771?ixlib=rb-1.2.1&auto=format&fit=crop&w=2000&q=80');"
-    >
-      <div class="absolute inset-0 hero-gradient"></div>
-    </div>
-    
-    <nav class="relative z-10 flex items-center justify-between px-6 py-4 max-w-7xl mx-auto">
-      <div class="flex items-center gap-3">
-        <span class="text-2xl font-bold text-white">Global<span class="text-blue-400">Drive</span></span>
-      </div>
-      <div class="hidden md:flex items-center gap-8 text-white">
-        <a href="#services" class="hover:text-blue-400 transition duration-300">Serviços</a>
-        <a href="#featured" class="hover:text-blue-400 transition duration-300">Veículos</a>
-        <a href="#process" class="hover:text-blue-400 transition duration-300">Processo</a>
-        <a href="#about" class="hover:text-blue-400 transition duration-300">Sobre</a>
-        <a href="#contact" class="hover:text-blue-400 transition duration-300">Contato</a>
-      </div>
-    </nav>
-
-    <div class="relative z-10 flex flex-col items-center justify-center h-full text-center px-4">
-      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6">
-        Seu Carro Internacional<br>
-        <span class="text-blue-400">Ao Seu Alcance</span>
-      </h1>
-      <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl">
-        Importação inteligente e segura de veículos premium com expertise global
-      </p>
-      <a
-        href="#contact"
-        class="bg-blue-500 text-white px-8 py-4 rounded-lg text-lg font-semibold hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-      >
-        Solicitar Consultoria
-      </a>
-    </div>
-  </header>
-
-  
-  
-  <!-- Services Section -->
-  <section id="services" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-4">Nossos Serviços</h2>
-      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-        Oferecemos soluções completas para tornar seu sonho de importação uma realidade
-      </p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-          <i data-lucide="ship" class="h-12 w-12 text-blue-500 mb-4"></i>
-          <h3 class="text-xl font-bold mb-4">Importação Premium</h3>
-          <p class="text-gray-600">Gerenciamento completo do processo de importação, desde a seleção até a entrega final.</p>
+    <!-- Header/NavBar Principal -->
+    <header class="main-header">
+        <div class="container header-flex">
+            <a href="index.html" class="logo-link">
+                <img src="assets/logo.png" alt="Falrui Logo" class="logo">
+            </a>
+            <!-- Menu de navegação -->
+            <nav class="main-nav" aria-label="Navegação principal">
+                <ul class="nav-list">
+                    <li><a href="index.html" class="active">Home</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="qualidade.html">Qualidade</a></li>
+                    <li><a href="contactos.html">Contactos</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+            <div class="header-social">
+                <a href="#" aria-label="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+                <a href="#" aria-label="Twitter"><img src="assets/twitter.svg" alt="Twitter"></a>
+                <a href="#" aria-label="Instagram"><img src="assets/instagram.svg" alt="Instagram"></a>
+            </div>
         </div>
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-          <i data-lucide="dollar-sign" class="h-12 w-12 text-blue-500 mb-4"></i>
-          <h3 class="text-xl font-bold mb-4">Consultoria Financeira</h3>
-          <p class="text-gray-600">Planejamento financeiro estratégico e auxílio com financiamentos internacionais.</p>
-        </div>
-        <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
-          <i data-lucide="clock" class="h-12 w-12 text-blue-500 mb-4"></i>
-          <h3 class="text-xl font-bold mb-4">Monitoramento 24/7</h3>
-          <p class="text-gray-600">Acompanhamento em tempo real do status da sua importação com updates constantes.</p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </header>
 
-  <!-- Featured Cars Section -->
-  <section id="featured" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-4">Veículos em Destaque</h2>
-      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-        Conheça alguns dos veículos premium disponíveis para importação
-      </p>
-      <div class="grid md:grid-cols-3 gap-8">
-        <!-- Car 1 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="Porsche Taycan"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Porsche Taycan</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">Elétrico • 750hp • 2023</span>
+    <!-- Banner Hero/Slider principal -->
+    <section class="hero-slider">
+        <div class="hero-slide">
+            <!-- Imagem de fundo via CSS -->
+            <div class="hero-content">
+                <h1>CONSTRUÍMOS<br>SONHOS</h1>
+                <p class="hero-tag">Empresa #1 em Alumínios</p>
             </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
-            </div>
-          </div>
+            <!-- Setas e pontos do slider podem ser implementados via JS -->
         </div>
+    </section>
 
-        <!-- Car 2 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="BMW M4 Competition"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">BMW M4 Competition</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">510hp • V6 • 2023</span>
-            </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
-            </div>
-          </div>
+    <!-- Secção Quem Somos -->
+    <section class="section-about" id="sobre">
+        <div class="container">
+            <p class="about-description">
+                A FALRUI, SA é uma PME fundada em Novembro de 2004 que se dedica ao fabrico e comercialização de caixilharia de alumínios para obras Particulares e Públicas e atua em todo o território nacional. Tendo como lema a satisfação do Cliente com base na seriedade e qualidade do serviço prestado, tem desenvolvido a sua actividade de forma crescente, conquistando o seu lugar próprio e consolidando gradualmente a sua posição no mercado.
+            </p>
+            <a href="empresa.html" class="btn-link">Ver Mais →</a>
         </div>
+    </section>
 
-        <!-- Car 3 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1621285853634-713b8dd6b5fd?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="Tesla Model S Plaid"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Tesla Model S Plaid</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">Elétrico • 1020hp • 2023</span>
+    <!-- Secção Produtos -->
+    <section class="section-products" id="produtos">
+        <div class="container">
+            <h2>Produtos</h2>
+            <p class="products-desc">O nosso objectivo é criar algo especial, para desenvolver produtos que satisfaçam os requisitos da arquitectura moderna e que correspondam às expectativas dos nossos Clientes.</p>
+            <div class="products-grid">
+                <!-- Produto Minimalista -->
+                <div class="product-card">
+                    <div class="product-icon"><img src="assets/minimalistas.svg" alt="Ícone Minimalista"></div>
+                    <h3>Janelas Minimalistas</h3>
+                    <p>Design minimalista janelas e portas de correr – Transparência para arquitectura inovadora!</p>
+                    <a href="produtos.html" class="btn-link">Ver Mais →</a>
+                </div>
+                <!-- Produto Alumínio -->
+                <div class="product-card">
+                    <div class="product-icon"><img src="assets/aluminio.svg" alt="Ícone Alumínio"></div>
+                    <h3>Janelas de Alumínio</h3>
+                    <p>Este tipo de sistema contém uma vedação central, com ou sem ruptura de ponte térmica, cuja diversidade de soluções…</p>
+                    <a href="produtos.html" class="btn-link">Ver Mais →</a>
+                </div>
+                <!-- Produto Protecção Solar -->
+                <div class="product-card">
+                    <div class="product-icon"><img src="assets/proteccao-solar.svg" alt="Ícone Protecção Solar"></div>
+                    <h3>Protecção Solar</h3>
+                    <p>---</p>
+                    <a href="produtos.html" class="btn-link">Ver Mais →</a>
+                </div>
+                <!-- Produto Renovação -->
+                <div class="product-card">
+                    <div class="product-icon"><img src="assets/renovacao.svg" alt="Ícone Renovação"></div>
+                    <h3>Renovação</h3>
+                    <p>---</p>
+                    <a href="produtos.html" class="btn-link">Ver Mais →</a>
+                </div>
             </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
-            </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Car 4 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1603584173870-7f23fdae1b7a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="Audi RS e-tron GT"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Audi RS e-tron GT</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">Elétrico • 646hp • 2023</span>
+    <!-- Secção Projetos -->
+    <section class="section-projects" id="projetos">
+        <div class="container">
+            <h2>Projetos</h2>
+            <p>Conheça alguns dos nossos projetos.</p>
+            <div class="projects-grid">
+                <div class="project-diamond"><img src="assets/projeto1.jpg" alt="Projeto 1"></div>
+                <div class="project-diamond"><img src="assets/projeto2.jpg" alt="Projeto 2"></div>
+                <div class="project-diamond"><img src="assets/projeto3.jpg" alt="Projeto 3"></div>
+                <div class="project-diamond"><img src="assets/projeto4.jpg" alt="Projeto 4"></div>
+                <div class="project-diamond"><img src="assets/projeto5.jpg" alt="Projeto 5"></div>
+                <div class="project-diamond"><img src="assets/projeto6.jpg" alt="Projeto 6"></div>
+                <div class="project-diamond"><img src="assets/projeto7.jpg" alt="Projeto 7"></div>
             </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
-            </div>
-          </div>
+            <a href="portfolio.html" class="btn-link">Ver Projetos →</a>
         </div>
+    </section>
 
-        <!-- Car 5 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1612825173281-9a193378527e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="Mercedes-AMG GT 63 S"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Mercedes-AMG GT 63 S</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">639hp • V8 • 2023</span>
+    <!-- Secção Testemunho -->
+    <section class="section-testimonial">
+        <div class="container testimonial-flex">
+            <div class="testimonial-photo">
+                <!-- Placeholder genérico Unsplash -->
+                <img src="https://images.unsplash.com/photo-1511367461989-f85a21fda167?auto=format&fit=facearea&w=300&h=300&q=80" alt="Testemunho">
             </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
+            <div class="testimonial-content">
+                <blockquote>Utilizei os serviços da Falrui em vários projetos durante a última década e meia. Os seus produtos são de alta qualidade e resistentes aos elementos. Recomendo fortemente!</blockquote>
+                <p class="testimonial-author">Ana Luísa Esteves<br><span>Pingo Doce</span></p>
             </div>
-          </div>
         </div>
+    </section>
 
-        <!-- Car 6 -->
-        <div class="bg-white rounded-xl shadow-lg overflow-hidden car-card">
-          <div class="relative h-48 overflow-hidden">
-            <img 
-              src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80"
-              alt="Lamborghini Huracán"
-              class="w-full h-full object-cover"
-            >
-          </div>
-          <div class="p-6">
-            <h3 class="text-xl font-bold mb-2">Lamborghini Huracán</h3>
-            <div class="flex items-center gap-2 text-gray-600 mb-2">
-              <i data-lucide="gauge" class="h-4 w-4"></i>
-              <span class="text-sm">640hp • V10 • 2023</span>
-            </div>
-            <div class="flex items-center gap-2 text-blue-500 font-semibold">
-              <span>100.000€</span>
-            </div>
-          </div>
+    <!-- Secção Parceiros/Clientes -->
+    <section class="section-partners">
+        <div class="container partners-grid">
+            <img src="assets/asc.png" alt="ASC logo">
+            <img src="assets/csf.png" alt="CSF logo">
+            <img src="assets/pingodoce.png" alt="Pingo Doce">
+            <img src="assets/lidl.png" alt="Lidl">
+            <img src="assets/marbravo.png" alt="Mar Bravo">
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Process Section -->
-  <section id="process" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-4">Processo Simplificado</h2>
-      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-        Nossa metodologia garante uma importação tranquila e sem complicações
-      </p>
-      <div class="grid md:grid-cols-4 gap-8">
-        <div class="text-center">
-          <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 step-number">1</div>
-          <h3 class="text-xl font-bold mb-2">Consultoria Inicial</h3>
-          <p class="text-gray-600">Análise personalizada das suas necessidades</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 step-number">2</div>
-          <h3 class="text-xl font-bold mb-2">Seleção do Veículo</h3>
-          <p class="text-gray-600">Busca e avaliação do veículo ideal</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 step-number">3</div>
-          <h3 class="text-xl font-bold mb-2">Processo Legal</h3>
-          <p class="text-gray-600">Gestão completa da documentação</p>
-        </div>
-        <div class="text-center">
-          <div class="w-16 h-16 bg-blue-500 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4 step-number">4</div>
-          <h3 class="text-xl font-bold mb-2">Entrega Premium</h3>
-          <p class="text-gray-600">Liberação e entrega personalizada</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- About Section -->
-  <section id="about" class="py-20 bg-white">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="grid md:grid-cols-2 gap-12 items-center">
-        <div>
-          <h2 class="text-4xl font-bold mb-6">Por Que Escolher a GlobalDrive?</h2>
-          <div class="space-y-4">
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="h-6 w-6 text-blue-500"></i>
-              <span class="text-lg">Mais de 2000 importações bem-sucedidas</span>
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container footer-flex">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="Falrui logo">
             </div>
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="h-6 w-6 text-blue-500"></i>
-              <span class="text-lg">Equipe global de especialistas</span>
+            <div class="footer-nav">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="qualidade.html">Qualidade</a></li>
+                    <li><a href="contactos.html">Contactos</a></li>
+                </ul>
             </div>
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="h-6 w-6 text-blue-500"></i>
-              <span class="text-lg">Processo 100% transparente e seguro</span>
+            <div class="footer-contact">
+                <h4>Contactos</h4>
+                <address>
+                    <p>NAZARÉ PORTUGAL</p>
+                    <p><a href="tel:+351262990870">+351 262 990 870</a></p>
+                    <p><a href="mailto:geral@falrui.pt">geral@falrui.pt</a></p>
+                </address>
             </div>
-            <div class="flex items-center gap-3">
-              <i data-lucide="check-circle" class="h-6 w-6 text-blue-500"></i>
-              <span class="text-lg">Suporte dedicado 24/7</span>
+            <div class="footer-search">
+                <h4>Pesquisa</h4>
+                <form>
+                    <input type="search" placeholder="Pesquisar...">
+                </form>
             </div>
-          </div>
         </div>
-        <div class="rounded-xl overflow-hidden shadow-xl">
-          <img 
-            src="https://images.unsplash.com/photo-1580274455191-1c62238fa333?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" 
-            alt="GlobalDrive Showroom"
-            class="w-full h-[400px] object-cover hover:scale-105 transition duration-500"
-          >
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact Section -->
-  <section id="contact" class="py-20 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4">
-      <h2 class="text-4xl font-bold text-center mb-4">Entre em Contato</h2>
-      <p class="text-gray-600 text-center mb-16 max-w-2xl mx-auto">
-        Estamos prontos para ajudar você a realizar o sonho do seu carro internacional
-      </p>
-      <div class="grid md:grid-cols-2 gap-12">
-        <div class="space-y-8">
-          <div class="flex items-center gap-4 p-6 bg-white rounded-lg contact-item">
-            <i data-lucide="phone" class="h-6 w-6 text-blue-500"></i>
-            <div>
-              <h3 class="font-bold">Telefone</h3>
-              <p class="text-gray-600">+351 914972298</p>
+        <div class="footer-bottom">
+            <small>© 2023 Todos os direitos reservados Falrui · Webdesign: Fibra Design.</small>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+                <a href="#" aria-label="Twitter"><img src="assets/twitter.svg" alt="Twitter"></a>
+                <a href="#" aria-label="YouTube"><img src="assets/youtube.svg" alt="YouTube"></a>
             </div>
-          </div>
-          <div class="flex items-center gap-4 p-6 bg-white rounded-lg contact-item">
-            <i data-lucide="mail" class="h-6 w-6 text-blue-500"></i>
-            <div>
-              <h3 class="font-bold">Email</h3>
-              <p class="text-gray-600">geral@globaldrive.pt</p>
-            </div>
-          </div>
-          <div class="flex items-center gap-4 p-6 bg-white rounded-lg contact-item">
-            <i data-lucide="map-pin" class="h-6 w-6 text-blue-500"></i>
-            <div>
-              <h3 class="font-bold">Morada</h3>
-              <p class="text-gray-600">Nazaré</p>
-            </div>
-          </div>
         </div>
-        <form class="space-y-6">
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Nome</label>
-            <input
-              type="text"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
-            >
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
-            >
-          </div>
-          <div>
-            <label class="block text-sm font-medium text-gray-700 mb-1">Mensagem</label>
-            <textarea
-              rows="4"
-              class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition duration-300"
-            ></textarea>
-          </div>
-          <button
-            type="submit"
-            class="w-full bg-blue-500 text-white px-6 py-3 rounded-lg font-semibold hover:bg-blue-600 transition duration-300 transform hover:scale-105"
-          >
-            Enviar Mensagem
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- Footer -->
-  <footer class="bg-gray-900 text-white py-12">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="flex flex-col md:flex-row justify-between items-center">
-        <div class="flex items-center gap-3 mb-6 md:mb-0">
-          <i data-lucide="car" class="h-8 w-8 text-blue-400"></i>
-          <span class="text-2xl font-bold">Global<span class="text-blue-400">Drive</span></span>
-        </div>
-        <div class="text-center md:text-right">
-          <p>&copy; 2024 GlobalDrive. Todos os direitos reservados.</p>
-        </div>
-      </div>
-    </div>
-  </footer>
-
-  <script>
-    lucide.createIcons();
-  </script>
+    </footer>
+    <script src="js/script.js"></script>
 </body>
 </html>

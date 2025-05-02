@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contactos – Falrui</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Header (clonado) -->
+    <header class="main-header">
+        <div class="container header-flex">
+            <a href="index.html" class="logo-link">
+                <img src="assets/logo.png" alt="Falrui Logo" class="logo">
+            </a>
+            <nav class="main-nav" aria-label="Navegação principal">
+                <ul class="nav-list">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="qualidade.html">Qualidade</a></li>
+                    <li><a href="contactos.html" class="active">Contactos</a></li>
+                </ul>
+            </nav>
+            <button class="menu-toggle" aria-label="Abrir menu">☰</button>
+            <div class="header-social">
+                <a href="#" aria-label="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+                <a href="#" aria-label="Twitter"><img src="assets/twitter.svg" alt="Twitter"></a>
+                <a href="#" aria-label="Instagram"><img src="assets/instagram.svg" alt="Instagram"></a>
+            </div>
+        </div>
+    </header>
+    <main>
+        <section class="page-hero">
+            <div class="container">
+                <h1>Contactos</h1>
+                <p class="subtitle">Fale connosco</p>
+            </div>
+        </section>
+        <section class="section-contactos">
+            <div class="container contact-flex">
+                <div class="contact-data">
+                    <h2>Contactos</h2>
+                    <address>
+                        <strong>Falrui, S.A.</strong><br>
+                        Nazaré, Portugal<br>
+                        <a href="tel:+351262990870">+351 262 990 870</a><br>
+                        <a href="mailto:geral@falrui.pt">geral@falrui.pt</a>
+                    </address>
+                </div>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="nome">Nome:</label>
+                            <input type="text" id="nome" name="nome" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="mensagem">Mensagem:</label>
+                            <textarea id="mensagem" name="mensagem" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-link">Enviar</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="main-footer">
+        <div class="container footer-flex">
+            <div class="footer-logo">
+                <img src="assets/logo.png" alt="Falrui logo">
+            </div>
+            <div class="footer-nav">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="empresa.html">Empresa</a></li>
+                    <li><a href="produtos.html">Produtos</a></li>
+                    <li><a href="portfolio.html">Portfolio</a></li>
+                    <li><a href="qualidade.html">Qualidade</a></li>
+                    <li><a href="contactos.html" class="active">Contactos</a></li>
+                </ul>
+            </div>
+            <div class="footer-contact">
+                <h4>Contactos</h4>
+                <address>
+                    <p>NAZARÉ PORTUGAL</p>
+                    <p><a href="tel:+351262990870">+351 262 990 870</a></p>
+                    <p><a href="mailto:geral@falrui.pt">geral@falrui.pt</a></p>
+                </address>
+            </div>
+            <div class="footer-search">
+                <h4>Pesquisa</h4>
+                <form>
+                    <input type="search" placeholder="Pesquisar...">
+                </form>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <small>© 2023 Todos os direitos reservados Falrui · Webdesign: Fibra Design.</small>
+            <div class="footer-social">
+                <a href="#" aria-label="Facebook"><img src="assets/facebook.svg" alt="Facebook"></a>
+                <a href="#" aria-label="Twitter"><img src="assets/twitter.svg" alt="Twitter"></a>
+                <a href="#" aria-label="YouTube"><img src="assets/youtube.svg" alt="YouTube"></a>
+            </div>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+</html>
